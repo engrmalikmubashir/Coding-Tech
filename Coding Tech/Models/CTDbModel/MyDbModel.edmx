@@ -1,0 +1,587 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="fontModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblBuilding">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="City" Type="int" />
+          <Property Name="Country" Type="int" />
+          <Property Name="Address" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="tblCity">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Country" Type="int" />
+        </EntityType>
+        <EntityType Name="tblCountry">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Continent" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblCustomer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="City" Type="int" Nullable="false" />
+          <Property Name="County" Type="int" />
+          <Property Name="Mobile" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Landline" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="CNIC" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="tblFloor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Building" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblInterests">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="C#" Type="bit" />
+          <Property Name="PHP" Type="bit" />
+          <Property Name="Python" Type="bit" />
+          <Property Name="Ruby" Type="bit" />
+          <Property Name="VB" Type="bit" />
+          <Property Name="React" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblShop">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Floor" Type="int" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="tblUsers">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Username" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="50" />
+          <Property Name="Interests" Type="int" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="ImagePath" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_tblBuilding_tblCity">
+          <End Role="tblCity" Type="Self.tblCity" Multiplicity="0..1" />
+          <End Role="tblBuilding" Type="Self.tblBuilding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCity">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblBuilding">
+              <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBuilding_tblCountry">
+          <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="0..1" />
+          <End Role="tblBuilding" Type="Self.tblBuilding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCountry">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblBuilding">
+              <PropertyRef Name="Country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCity_tblCountry">
+          <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="0..1" />
+          <End Role="tblCity" Type="Self.tblCity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCountry">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblCity">
+              <PropertyRef Name="Country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCustomer_tblCity">
+          <End Role="tblCity" Type="Self.tblCity" Multiplicity="1" />
+          <End Role="tblCustomer" Type="Self.tblCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCity">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblCustomer">
+              <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCustomer_tblCountry">
+          <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="0..1" />
+          <End Role="tblCustomer" Type="Self.tblCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCountry">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblCustomer">
+              <PropertyRef Name="County" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFloor_tblBuilding">
+          <End Role="tblBuilding" Type="Self.tblBuilding" Multiplicity="1" />
+          <End Role="tblFloor" Type="Self.tblFloor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBuilding">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblFloor">
+              <PropertyRef Name="Building" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblShop_tblFloor">
+          <End Role="tblFloor" Type="Self.tblFloor" Multiplicity="0..1" />
+          <End Role="tblShop" Type="Self.tblShop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFloor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblShop">
+              <PropertyRef Name="Floor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUsers_tblInterests">
+          <End Role="tblInterests" Type="Self.tblInterests" Multiplicity="0..1" />
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblInterests">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblUsers">
+              <PropertyRef Name="Interests" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="fontModelStoreContainer">
+          <EntitySet Name="tblBuilding" EntityType="Self.tblBuilding" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCity" EntityType="Self.tblCity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCountry" EntityType="Self.tblCountry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCustomer" EntityType="Self.tblCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblFloor" EntityType="Self.tblFloor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblInterests" EntityType="Self.tblInterests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblShop" EntityType="Self.tblShop" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblBuilding_tblCity" Association="Self.FK_tblBuilding_tblCity">
+            <End Role="tblCity" EntitySet="tblCity" />
+            <End Role="tblBuilding" EntitySet="tblBuilding" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBuilding_tblCountry" Association="Self.FK_tblBuilding_tblCountry">
+            <End Role="tblCountry" EntitySet="tblCountry" />
+            <End Role="tblBuilding" EntitySet="tblBuilding" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCity_tblCountry" Association="Self.FK_tblCity_tblCountry">
+            <End Role="tblCountry" EntitySet="tblCountry" />
+            <End Role="tblCity" EntitySet="tblCity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCustomer_tblCity" Association="Self.FK_tblCustomer_tblCity">
+            <End Role="tblCity" EntitySet="tblCity" />
+            <End Role="tblCustomer" EntitySet="tblCustomer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCustomer_tblCountry" Association="Self.FK_tblCustomer_tblCountry">
+            <End Role="tblCountry" EntitySet="tblCountry" />
+            <End Role="tblCustomer" EntitySet="tblCustomer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFloor_tblBuilding" Association="Self.FK_tblFloor_tblBuilding">
+            <End Role="tblBuilding" EntitySet="tblBuilding" />
+            <End Role="tblFloor" EntitySet="tblFloor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblShop_tblFloor" Association="Self.FK_tblShop_tblFloor">
+            <End Role="tblFloor" EntitySet="tblFloor" />
+            <End Role="tblShop" EntitySet="tblShop" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUsers_tblInterests" Association="Self.FK_tblUsers_tblInterests">
+            <End Role="tblInterests" EntitySet="tblInterests" />
+            <End Role="tblUsers" EntitySet="tblUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="fontModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblBuilding">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="Int32" />
+          <Property Name="Country" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblCity" Relationship="Self.FK_tblBuilding_tblCity" FromRole="tblBuilding" ToRole="tblCity" />
+          <NavigationProperty Name="tblCountry" Relationship="Self.FK_tblBuilding_tblCountry" FromRole="tblBuilding" ToRole="tblCountry" />
+          <NavigationProperty Name="tblFloors" Relationship="Self.FK_tblFloor_tblBuilding" FromRole="tblBuilding" ToRole="tblFloor" />
+        </EntityType>
+        <EntityType Name="tblCity">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Country" Type="Int32" />
+          <NavigationProperty Name="tblBuildings" Relationship="Self.FK_tblBuilding_tblCity" FromRole="tblCity" ToRole="tblBuilding" />
+          <NavigationProperty Name="tblCountry" Relationship="Self.FK_tblCity_tblCountry" FromRole="tblCity" ToRole="tblCountry" />
+          <NavigationProperty Name="tblCustomers" Relationship="Self.FK_tblCustomer_tblCity" FromRole="tblCity" ToRole="tblCustomer" />
+        </EntityType>
+        <EntityType Name="tblCountry">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblBuildings" Relationship="Self.FK_tblBuilding_tblCountry" FromRole="tblCountry" ToRole="tblBuilding" />
+          <NavigationProperty Name="tblCities" Relationship="Self.FK_tblCity_tblCountry" FromRole="tblCountry" ToRole="tblCity" />
+          <NavigationProperty Name="tblCustomers" Relationship="Self.FK_tblCustomer_tblCountry" FromRole="tblCountry" ToRole="tblCustomer" />
+          <Property Name="Continent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblCustomer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="Int32" Nullable="false" />
+          <Property Name="County" Type="Int32" />
+          <Property Name="Mobile" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Landline" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CNIC" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="tblCity" Relationship="Self.FK_tblCustomer_tblCity" FromRole="tblCustomer" ToRole="tblCity" />
+          <NavigationProperty Name="tblCountry" Relationship="Self.FK_tblCustomer_tblCountry" FromRole="tblCustomer" ToRole="tblCountry" />
+        </EntityType>
+        <EntityType Name="tblFloor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Building" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblBuilding" Relationship="Self.FK_tblFloor_tblBuilding" FromRole="tblFloor" ToRole="tblBuilding" />
+          <NavigationProperty Name="tblShops" Relationship="Self.FK_tblShop_tblFloor" FromRole="tblFloor" ToRole="tblShop" />
+        </EntityType>
+        <EntityType Name="tblInterest">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="C_" Type="Boolean" />
+          <Property Name="PHP" Type="Boolean" />
+          <Property Name="Python" Type="Boolean" />
+          <Property Name="Ruby" Type="Boolean" />
+          <Property Name="VB" Type="Boolean" />
+          <Property Name="React" Type="Boolean" />
+          <NavigationProperty Name="tblUsers" Relationship="Self.FK_tblUsers_tblInterests" FromRole="tblInterests" ToRole="tblUsers" />
+        </EntityType>
+        <EntityType Name="tblShop">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Floor" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblFloor" Relationship="Self.FK_tblShop_tblFloor" FromRole="tblShop" ToRole="tblFloor" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Interests" Type="Int32" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblInterest" Relationship="Self.FK_tblUsers_tblInterests" FromRole="tblUsers" ToRole="tblInterests" />
+        </EntityType>
+        <Association Name="FK_tblBuilding_tblCity">
+          <End Role="tblCity" Type="Self.tblCity" Multiplicity="0..1" />
+          <End Role="tblBuilding" Type="Self.tblBuilding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCity">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblBuilding">
+              <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBuilding_tblCountry">
+          <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="0..1" />
+          <End Role="tblBuilding" Type="Self.tblBuilding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCountry">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblBuilding">
+              <PropertyRef Name="Country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFloor_tblBuilding">
+          <End Role="tblBuilding" Type="Self.tblBuilding" Multiplicity="1" />
+          <End Role="tblFloor" Type="Self.tblFloor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBuilding">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblFloor">
+              <PropertyRef Name="Building" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCity_tblCountry">
+          <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="0..1" />
+          <End Role="tblCity" Type="Self.tblCity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCountry">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblCity">
+              <PropertyRef Name="Country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCustomer_tblCity">
+          <End Role="tblCity" Type="Self.tblCity" Multiplicity="1" />
+          <End Role="tblCustomer" Type="Self.tblCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCity">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblCustomer">
+              <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCustomer_tblCountry">
+          <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="0..1" />
+          <End Role="tblCustomer" Type="Self.tblCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCountry">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblCustomer">
+              <PropertyRef Name="County" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblShop_tblFloor">
+          <End Role="tblFloor" Type="Self.tblFloor" Multiplicity="0..1" />
+          <End Role="tblShop" Type="Self.tblShop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFloor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblShop">
+              <PropertyRef Name="Floor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUsers_tblInterests">
+          <End Role="tblInterests" Type="Self.tblInterest" Multiplicity="0..1" />
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblInterests">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblUsers">
+              <PropertyRef Name="Interests" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="fontDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblBuildings" EntityType="Self.tblBuilding" />
+          <EntitySet Name="tblCities" EntityType="Self.tblCity" />
+          <EntitySet Name="tblCountries" EntityType="Self.tblCountry" />
+          <EntitySet Name="tblCustomers" EntityType="Self.tblCustomer" />
+          <EntitySet Name="tblFloors" EntityType="Self.tblFloor" />
+          <EntitySet Name="tblInterests" EntityType="Self.tblInterest" />
+          <EntitySet Name="tblShops" EntityType="Self.tblShop" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+          <AssociationSet Name="FK_tblBuilding_tblCity" Association="Self.FK_tblBuilding_tblCity">
+            <End Role="tblCity" EntitySet="tblCities" />
+            <End Role="tblBuilding" EntitySet="tblBuildings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBuilding_tblCountry" Association="Self.FK_tblBuilding_tblCountry">
+            <End Role="tblCountry" EntitySet="tblCountries" />
+            <End Role="tblBuilding" EntitySet="tblBuildings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFloor_tblBuilding" Association="Self.FK_tblFloor_tblBuilding">
+            <End Role="tblBuilding" EntitySet="tblBuildings" />
+            <End Role="tblFloor" EntitySet="tblFloors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCity_tblCountry" Association="Self.FK_tblCity_tblCountry">
+            <End Role="tblCountry" EntitySet="tblCountries" />
+            <End Role="tblCity" EntitySet="tblCities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCustomer_tblCity" Association="Self.FK_tblCustomer_tblCity">
+            <End Role="tblCity" EntitySet="tblCities" />
+            <End Role="tblCustomer" EntitySet="tblCustomers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCustomer_tblCountry" Association="Self.FK_tblCustomer_tblCountry">
+            <End Role="tblCountry" EntitySet="tblCountries" />
+            <End Role="tblCustomer" EntitySet="tblCustomers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblShop_tblFloor" Association="Self.FK_tblShop_tblFloor">
+            <End Role="tblFloor" EntitySet="tblFloors" />
+            <End Role="tblShop" EntitySet="tblShops" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUsers_tblInterests" Association="Self.FK_tblUsers_tblInterests">
+            <End Role="tblInterests" EntitySet="tblInterests" />
+            <End Role="tblUsers" EntitySet="tblUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="fontModelStoreContainer" CdmEntityContainer="fontDbContext">
+          <EntitySetMapping Name="tblBuildings">
+            <EntityTypeMapping TypeName="fontModel.tblBuilding">
+              <MappingFragment StoreEntitySet="tblBuilding">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCities">
+            <EntityTypeMapping TypeName="fontModel.tblCity">
+              <MappingFragment StoreEntitySet="tblCity">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCountries">
+            <EntityTypeMapping TypeName="fontModel.tblCountry">
+              <MappingFragment StoreEntitySet="tblCountry">
+                <ScalarProperty Name="Continent" ColumnName="Continent" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCustomers">
+            <EntityTypeMapping TypeName="fontModel.tblCustomer">
+              <MappingFragment StoreEntitySet="tblCustomer">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="County" ColumnName="County" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Landline" ColumnName="Landline" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CNIC" ColumnName="CNIC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblFloors">
+            <EntityTypeMapping TypeName="fontModel.tblFloor">
+              <MappingFragment StoreEntitySet="tblFloor">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Building" ColumnName="Building" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblInterests">
+            <EntityTypeMapping TypeName="fontModel.tblInterest">
+              <MappingFragment StoreEntitySet="tblInterests">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="C_" ColumnName="C#" />
+                <ScalarProperty Name="PHP" ColumnName="PHP" />
+                <ScalarProperty Name="Python" ColumnName="Python" />
+                <ScalarProperty Name="Ruby" ColumnName="Ruby" />
+                <ScalarProperty Name="VB" ColumnName="VB" />
+                <ScalarProperty Name="React" ColumnName="React" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblShops">
+            <EntityTypeMapping TypeName="fontModel.tblShop">
+              <MappingFragment StoreEntitySet="tblShop">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Floor" ColumnName="Floor" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="fontModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUsers">
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Interests" ColumnName="Interests" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

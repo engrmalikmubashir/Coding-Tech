@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="943f8b97a7584bd3897716eab7cef965" Name="Diagram1">
+        <EntityTypeShape EntityType="fontModel.tblBuilding" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="fontModel.tblCity" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="fontModel.tblCountry" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="fontModel.tblCustomer" Width="1.5" PointX="8.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="fontModel.tblFloor" Width="1.5" PointX="7.5" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="fontModel.tblInterest" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="fontModel.tblShop" Width="1.5" PointX="9.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="fontModel.tblUser" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
+        <AssociationConnector Association="fontModel.FK_tblBuilding_tblCity" ManuallyRouted="false" />
+        <AssociationConnector Association="fontModel.FK_tblBuilding_tblCountry" ManuallyRouted="false" />
+        <AssociationConnector Association="fontModel.FK_tblFloor_tblBuilding" ManuallyRouted="false" />
+        <AssociationConnector Association="fontModel.FK_tblCity_tblCountry" ManuallyRouted="false" />
+        <AssociationConnector Association="fontModel.FK_tblCustomer_tblCity" ManuallyRouted="false" />
+        <AssociationConnector Association="fontModel.FK_tblCustomer_tblCountry" ManuallyRouted="false" />
+        <AssociationConnector Association="fontModel.FK_tblShop_tblFloor" ManuallyRouted="false" />
+        <AssociationConnector Association="fontModel.FK_tblUsers_tblInterests" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
